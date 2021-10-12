@@ -1,0 +1,28 @@
+{
+  "name": "vehicle-api",
+  "version": "1.0.0",
+  "description": "Serverless CRUD service exposing a REST HTTP interface",
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.1004.0",
+    "uuid": "^2.0.3"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/unit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jon241/vehicleapi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jon241/vehicleapi/issues"
+  },
+  "homepage": "https://github.com/jon241/vehicleapi#readme",
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^9.1.2",
+    "serverless-offline": "^8.2.0"
+  }
+}
