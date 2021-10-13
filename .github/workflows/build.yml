@@ -37,7 +37,7 @@ jobs:
       #     aws-region: eu-west-1
 
       - name: Install NPM packages
-        run: npm ci
+        run: npm install
 
       - name: Run tests
         # uses: aws-actions/configure-aws-credentials@v1
