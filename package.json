@@ -10,7 +10,14 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/unit"
+    "setup:dynamodb": "node create-tables-locally.js",
+    "up": "docker-compose up -d",
+    "postup": "npm run setup:dynamodb",
+    "down": "docker-compose down",
+    "pretest": "npm run up",
+    "test": "mocha test/unit",
+    "posttest": "npm run down",
+    "pretest:watch": "npm run up"
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,11 @@
+version: '2.1'
+services:
+  dynamodb:
+    image: amazon/dynamodb-local:latest
+    # Use -inMemory because don't care about keeping the data for testing
+    # If we wanted regular test data we can seed the DB when starting
+    # -sharedDb for any application to use
+    command: -jar DynamoDBLocal.jar -sharedDb -inMemory -port 8001
+    ports:
+      - '8001:8001'
+    #working_dir: ./dynamodblocal
