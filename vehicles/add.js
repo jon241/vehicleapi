@@ -1,6 +1,17 @@
 'use strict';
 
 const uuid = require('uuid');
+const aws = require('aws-sdk');
+
+if (typeof process.env.AWS_ACCESS_KEY_ID !== 'undefined')
+{
+  aws.config.update({
+    region: "eu-west-1",
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+  });
+}
+
 const DynamoDB = require('aws-sdk/clients/dynamodb');
 // This snippet could go somewhere for reuse in all scripts.
 const ddbClient = new DynamoDB.DocumentClient({
