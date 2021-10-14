@@ -42,7 +42,7 @@ jobs:
       - name: Run tests
         run: npm test
 
-      # Test in this build first
+      # Test in this build first 
       - name: Deploy to AWS
         # uses: aws-actions/configure-aws-credentials@v1
         # env:
