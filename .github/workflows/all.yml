@@ -23,7 +23,6 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.PROD_AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
       AWS_REGION: eu-west-1
-      AWS_SDK_LOAD_CONFIG: 1
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -50,4 +49,6 @@ jobs:
         #   AWS_ACCESS_KEY_ID: ${{ secrets.PROD_AWS_ACCESS_KEY_ID }}
         #   AWS_SECRET_ACCESS_KEY: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
         #   AWS_REGION: eu-west-1
-        run: serverless deploy
+        run: |
+            set AWS_SDK_LOAD_CONFIG=1
+            serverless deploy
