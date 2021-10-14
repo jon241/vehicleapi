@@ -61,8 +61,11 @@ To test locally I use Postman. For example,
 
 If you run `npm test` it will start the DDB docker image, create the database table OR not, run the tests, then stop the docker and the test run. Remember this if you have already started the DDB docker image.
 
+## Production
+To deploy I really wanted GitHub main branch to do it but I haven't been able to get it to work yet getting the AWS credentials. For now, I will use `serverless deploy --aws-profile sls-vehicle-api-admin` to deploy to AWS myself.
+
 ### To Do
 - `GET /vehicles/{id}` return 404 when record not found
 - `POST /vehicles` More validation for charcters for the vehicle number plate.
 - Enable the environment variable DYNAMODB_TABLE to be used in the `create-tables-locally.js` script.
-- set all.yaml to build all branches except main
+- set dev.yaml to build all branches except main
