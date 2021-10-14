@@ -19,6 +19,9 @@ I know what I want to have
 - GitHub build to deploy to AWS from master branch then run integration tests
 - Authentication to use the API
 
+Assumptions:
+- UK number plates only
+
 ### Other notes
 Serverless Framework was an option, of which I have experience with plus the company use it themselves anyway.
 I could be as creative as I liked with the vehicle data stored.
@@ -66,6 +69,11 @@ To deploy I really wanted GitHub main branch to do it but I haven't been able to
 
 ### To Do
 - `GET /vehicles/{id}` return 404 when record not found
-- `POST /vehicles` More validation for charcters for the vehicle number plate.
+- `POST /vehicles` More validation for characters for the vehicle number plate.
+- `POST /vehicles` More validation for range/min/max for the vehicle year.
+- Much better logging and metrics.
+- Refactor tests.
 - Enable the environment variable DYNAMODB_TABLE to be used in the `create-tables-locally.js` script.
-- set dev.yaml to build all branches except main
+- Set dev.yaml to build all branches except main
+- Write the missing test to capture the DDB error that return 501. This would probably need some injection OR some other way to simulate it.
+- No doubt there is a lot more to do to make this better that I haven't thought of yet.

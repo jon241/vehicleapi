@@ -1,17 +1,6 @@
 'use strict';
 
 const uuid = require('uuid');
-const aws = require('aws-sdk');
-
-if (typeof process.env.AWS_ACCESS_KEY_ID !== 'undefined')
-{
-  aws.config.update({
-    region: "eu-west-1",
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-  });
-}
-
 const DynamoDB = require('aws-sdk/clients/dynamodb');
 // This snippet could go somewhere for reuse in all scripts.
 const ddbClient = new DynamoDB.DocumentClient({
@@ -30,9 +19,12 @@ module.exports.add = (event, context, callback) => {
   const timestamp = new Date().getTime();
   console.log(event);
   const data = JSON.parse(event.body);
+  var validCharacters = /^[0-9a-zA-Z]+$/;
 
-  if (typeof data.text !== 'string') {
-    console.error('Validation Failed');
+  if (typeof data.numberplate !== 'string' ||
+      !data.numberplate.match(validCharacters) ||
+      typeof data.year !== 'number') {
+    console.error('Validation Failed, %s', JSON.stringify(data));
 
     callback(null, {
       statusCode: 400,
@@ -47,7 +39,8 @@ module.exports.add = (event, context, callback) => {
     TableName: "vehicle-api",//process.env.DYNAMODB_TABLE,
     Item: {
       id: uuid.v1(),
-      text: data.text,
+      numberplate: data.numberplate,
+      year: data.year,
       checked: false,
       createdAt: timestamp,
       updatedAt: timestamp,
@@ -71,7 +64,7 @@ module.exports.add = (event, context, callback) => {
 
     // create a response
     const response = {
-      statusCode: 200,
+      statusCode: 201,
       body: JSON.stringify(params.Item),
     };
 
