@@ -65,3 +65,4 @@ If you run `npm test` it will start the DDB docker image, create the database ta
 - `GET /vehicles/{id}` return 404 when record not found
 - `POST /vehicles` More validation for charcters for the vehicle number plate.
 - Enable the environment variable DYNAMODB_TABLE to be used in the `create-tables-locally.js` script.
+- set all.yaml to build all branches except main
