@@ -23,14 +23,25 @@ module.exports.add = (event, context, callback) => {
   var validCharacters = /^[0-9a-zA-Z]+$/;
 
   if (typeof data.numberplate !== 'string' ||
-      !data.numberplate.match(validCharacters) ||
-      typeof data.year !== 'number') {
+      !data.numberplate.match(validCharacters)) {
     console.error('Validation Failed, %s', JSON.stringify(data));
 
     callback(null, {
       statusCode: 400,
       headers: { 'Content-Type': 'text/plain' },
-      body: 'Couldn\'t add the vehicle item.',
+      body: 'Number plate is invalid.',
+    });
+    
+    return;
+  }
+  else if (typeof data.year !== 'number' ||
+      data.year > new Date().getFullYear()) {
+    console.error('Validation Failed, %s', JSON.stringify(data));
+
+    callback(null, {
+      statusCode: 400,
+      headers: { 'Content-Type': 'text/plain' },
+      body: 'Year is invalid.',
     });
     
     return;

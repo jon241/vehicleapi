@@ -24,7 +24,7 @@ describe('Add vehicle', function() {
         lambdaFunc.add(evt, _ctx, function(other, resp){
             expect(resp, "response").to.not.equal(null);
             expect(resp.statusCode, "statusCode").to.equal(400);
-            expect(resp.body, "body").to.equal('Couldn\'t add the vehicle item.');
+            expect(resp.body, "body").to.equal('Number plate is invalid.');
             done();
         });
     });
@@ -48,7 +48,7 @@ describe('Add vehicle', function() {
         lambdaFunc.add(evt, _ctx, function(other, resp){
             expect(resp, "response").to.not.equal(null);
             expect(resp.statusCode, "statusCode").to.equal(400);
-            expect(resp.body, "body").to.equal('Couldn\'t add the vehicle item.');
+            expect(resp.body, "body").to.equal('Number plate is invalid.');
             done();
         });
     });
@@ -72,7 +72,31 @@ describe('Add vehicle', function() {
         lambdaFunc.add(evt, _ctx, function(other, resp){
             expect(resp, "response").to.not.equal(null);
             expect(resp.statusCode, "statusCode").to.equal(400);
-            expect(resp.body, "body").to.equal('Couldn\'t add the vehicle item.');
+            expect(resp.body, "body").to.equal('Year is invalid.');
+            done();
+        });
+    });
+
+    it('should return statusCode 400 when the year is greater than this year', function(done) {
+        let evt = {
+            headers: {
+                Host: 'localhost:3000',
+            },
+            requestContext:{
+                http:{
+                    protocol: "HTTP/1.1"
+                }
+            },
+            body: JSON.stringify({   
+                numberplate:  "AB12CDE",
+                year: new Date().getFullYear()+1
+            })
+        };
+        
+        lambdaFunc.add(evt, _ctx, function(other, resp){
+            expect(resp, "response").to.not.equal(null);
+            expect(resp.statusCode, "statusCode").to.equal(400);
+            expect(resp.body, "body").to.equal('Year is invalid.');
             done();
         });
     });
