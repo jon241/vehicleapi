@@ -7,6 +7,14 @@ describe('Add vehicle', function() {
 
     it('should return statusCode 400 when the numberplate is not a string', function(done) {
         let evt = {
+            headers: {
+                Host: 'localhost:3000',
+            },
+            requestContext:{
+                http:{
+                    protocol: "HTTP/1.1"
+                }
+            },
             body: JSON.stringify({   
                 numberplate:  null,
                 year: 2020
@@ -23,6 +31,14 @@ describe('Add vehicle', function() {
 
     it('should return statusCode 400 when the numberplate has invalid characters', function(done) {
         let evt = {
+            headers: {
+                Host: 'localhost:3000',
+            },
+            requestContext:{
+                http:{
+                    protocol: "HTTP/1.1"
+                }
+            },
             body: JSON.stringify({   
                 numberplate: "AB12-CDE",
                 year: 2020
@@ -39,6 +55,14 @@ describe('Add vehicle', function() {
 
     it('should return statusCode 400 when the year is not a number', function(done) {
         let evt = {
+            headers: {
+                Host: 'localhost:3000',
+            },
+            requestContext:{
+                http:{
+                    protocol: "HTTP/1.1"
+                }
+            },
             body: JSON.stringify({   
                 numberplate:  "AB12CDE",
                 year: null
@@ -55,6 +79,14 @@ describe('Add vehicle', function() {
 
     it('should return statusCode 201 when the vehicle is created', function(done) {
         let evt = {
+            headers: {
+                Host: 'localhost:3000',
+            },
+            requestContext:{
+                http:{
+                    protocol: "HTTP/1.1"
+                }
+            },
             body: JSON.stringify({   
                 numberplate: "AB12CDE",
                 year: 2020
@@ -66,8 +98,11 @@ describe('Add vehicle', function() {
             expect(resp.statusCode, "statusCode").to.equal(201);
             expect(resp.body, "body").to.not.equal("");
             let parsedRespBody = JSON.parse(resp.body);
-            expect(parsedRespBody.numberplate, "numberplate").is.equal("AB12CDE");
-            expect(parsedRespBody.year, "year").is.equal(2020);
+            //expect(parsedRespBody.numberplate, "numberplate").is.equal("AB12CDE");
+            //expect(parsedRespBody.year, "year").is.equal(2020);
+            // To enable thorough checking of the Location at this point requires a little bit 
+            // more work.
+            expect(parsedRespBody.Location, "Location").contains("http://").and.contains("/vehicles/");
             done();
         });
     });
