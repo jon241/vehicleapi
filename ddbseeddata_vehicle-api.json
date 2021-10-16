@@ -1,0 +1,18 @@
+{
+    "RequestItems": {
+        "vehicle-api": [
+            {
+                "PutRequest": {
+                    "Item": {
+                        "id": { "S": "the-1d-th4t-3x1sts" },
+                        "numberplate": { "S": "XY12CDE" },
+                        "year": { "N": "2020" },
+                        "checked": { "BOOL" : false },
+                        "createdAt": { "S" : "1634406056789" },
+                        "updatedAt": { "S" : "1634406056789" }
+                    }
+                }
+            }
+        ]
+    }
+}

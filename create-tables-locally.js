@@ -47,14 +47,20 @@ async function getDynamoDBTableResources() {
       existingTables.find((table) => table === TableName)
     ) {
       console.info(
-        `${logicalId}: DynamoDB Local - Table already exists: ${TableName}. Skipping..`,
+        `${logicalId}: DynamoDB Local - Table already exists: ${TableName}. Deleting..`,
       )
-      continue
+
+      // clear existing data
+      await ddb.deleteTable({
+        TableName: TableName
+      }).promise()
+
+      //continue
     }    
     
     // For this to work the TableName in the serverless.yml cannot be a ${self:whatever} 
     // as it does not get translated in this JS code. Perhaps add that as a TODO.
-    const result = await ddb
+    const createdResult = await ddb
       .createTable({
         AttributeDefinitions,
         BillingMode,
@@ -68,5 +74,22 @@ async function getDynamoDBTableResources() {
     console.info(
       `${logicalId}: DynamoDB Local - Created table: ${TableName}`,
     )
+
+    // I added this to seed the table if it exists and then my tests requiring
+    // existing data do not need to depend on the add lambda to do that.
+    // I am expecting the JSON file(s) to be found alongside this script file.
+    let seedDataFile = `ddbseeddata_${TableName}.json`
+
+    if (fs.existsSync(seedDataFile)) {
+      const seedData = fs.readFileSync(seedDataFile)
+      const batchResult = await ddb
+        .batchWriteItem(JSON.parse(seedData))
+        .promise()
+        
+      console.info(
+        `${logicalId}: DynamoDB Local - Added records to table: ${TableName}`,
+      )
+    }
+
   } // end of for loop
 })()
