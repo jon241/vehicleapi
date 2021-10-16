@@ -68,9 +68,11 @@ If you run `npm test` it will start the DDB docker image, create the database ta
 To deploy I really wanted GitHub main branch to do it but I haven't been able to get it to work yet getting the AWS credentials. For now, I will use `serverless deploy --aws-profile sls-vehicle-api-admin` to deploy to AWS myself.
 
 ### To Do
-- `GET /vehicles/{id}` return 404 when record not found
-- `POST /vehicles` More validation for characters for the vehicle number plate.
+- `GET /vehicles/{id}` return 404 record not found when not found in DDB
+- `GET /vehicles/{id}` return 404 record not found when id not valid 
+- `POST /vehicles` More validation for characters for the vehicle number plate. Regex check might be more helpful.
 - `POST /vehicles` More validation for range/min/max for the vehicle year.
+- `POST /vehicles` If the vehicle already exists then return 201 as usual.
 - Much better logging and metrics.
 - Refactor tests.
 - Enable the environment variable DYNAMODB_TABLE to be used in the `create-tables-locally.js` script.
