@@ -18,12 +18,8 @@ provider:
       statements:
         - Effect: Allow
           Action:
-            #- dynamodb:Query
-            #- dynamodb:Scan
-            #- dynamodb:GetItem
+            - dynamodb:GetItem
             - dynamodb:PutItem
-            #- dynamodb:UpdateItem
-            #- dynamodb:DeleteItem
           Resource: "arn:aws:dynamodb:${aws:region}:*:table/vehicle-api"
 
 functions:
@@ -33,13 +29,12 @@ functions:
       - httpApi:
           path: /vehicles
           method: post
-
-  # get:
-  #   handler: vehicles/get.get
-  #   events:
-  #     - httpApi:
-  #         path: /vehicles/{id}
-  #         method: get
+  get:
+    handler: vehicles/get.get
+    events:
+      - httpApi:
+          path: /vehicles/{id}
+          method: get
 
 resources:
   Resources:
@@ -47,12 +42,10 @@ resources:
       Type: 'AWS::DynamoDB::Table'
       Properties:
         AttributeDefinitions:
-          -
-            AttributeName: id
+          - AttributeName: id
             AttributeType: S
         KeySchema:
-          -
-            AttributeName: id
+          - AttributeName: id
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
         TableName: vehicle-api #${self:provider.environment.DYNAMODB_TABLE}

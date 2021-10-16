@@ -122,8 +122,6 @@ describe('Add vehicle', function() {
             expect(resp.statusCode, "statusCode").to.equal(201);
             expect(resp.body, "body").to.not.equal("");
             let parsedRespBody = JSON.parse(resp.body);
-            //expect(parsedRespBody.numberplate, "numberplate").is.equal("AB12CDE");
-            //expect(parsedRespBody.year, "year").is.equal(2020);
             // To enable thorough checking of the Location at this point requires a little bit 
             // more work.
             expect(parsedRespBody.Location, "Location").contains("http://").and.contains("/vehicles/");
