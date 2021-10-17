@@ -1,6 +1,5 @@
 'use strict';
 
-const uuid = require('uuid');
 const DynamoDB = require('aws-sdk/clients/dynamodb');
 // This snippet could go somewhere for reuse in all scripts.
 const ddbClient = new DynamoDB.DocumentClient({
@@ -21,9 +20,9 @@ module.exports.get = (event, context, callback) => {
   const params = {
     TableName: "vehicle-api",//process.env.DYNAMODB_TABLE,
     Key: {
-      id: event.pathParameters.id,
-    },
-  };
+      id: `${event.pathParameters.id}`
+    }
+  }
 
   // write the vehicle to the database
   var result = ddbClient.get(params, function(error, data) {

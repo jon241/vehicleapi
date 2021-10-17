@@ -73,6 +73,7 @@ To deploy I really wanted GitHub main branch to do it but I haven't been able to
 - `POST /vehicles` More validation for characters for the vehicle number plate. Regex check might be more helpful.
 - `POST /vehicles` More validation for range/min/max for the vehicle year.
 - `POST /vehicles` If the vehicle already exists then return 201 as usual.
+- Update lambdas to use recommended async/await promises.
 - Much better logging and metrics.
 - Refactor tests.
 - Enable the environment variable DYNAMODB_TABLE to be used in the `create-tables-locally.js` script.
