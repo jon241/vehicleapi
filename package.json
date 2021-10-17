@@ -16,6 +16,7 @@
     "down": "docker-compose down",
     "pretest": "npm run up",
     "test": "mocha test/unit",
+    "inttest": "mocha test/integration",
     "posttest": "npm run down",
     "pretest:watch": "npm run up"
   },
@@ -31,6 +32,7 @@
     "@serverless/utils": "^5.18.0",
     "chai": "^4.3.4",
     "mocha": "^9.1.2",
-    "serverless-offline": "^8.2.0"
+    "serverless-offline": "^8.2.0",
+    "superagent": "^3.8.3"
   }
 }
