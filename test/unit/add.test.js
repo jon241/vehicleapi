@@ -8,12 +8,8 @@ describe('Add vehicle', function() {
     it('should return statusCode 400 when the numberplate is not a string', function(done) {
         let evt = {
             headers: {
-                Host: 'localhost:3000',
-            },
-            requestContext:{
-                http:{
-                    protocol: "HTTP/1.1"
-                }
+                host: 'localhost:3000',
+                'x-forwarded-proto': 'http'
             },
             body: JSON.stringify({   
                 numberplate:  null,
@@ -32,12 +28,8 @@ describe('Add vehicle', function() {
     it('should return statusCode 400 when the numberplate has invalid characters', function(done) {
         let evt = {
             headers: {
-                Host: 'localhost:3000',
-            },
-            requestContext:{
-                http:{
-                    protocol: "HTTP/1.1"
-                }
+                host: 'localhost:3000',
+                'x-forwarded-proto': 'http'
             },
             body: JSON.stringify({   
                 numberplate: "AB12-CDE",
@@ -56,12 +48,8 @@ describe('Add vehicle', function() {
     it('should return statusCode 400 when the year is not a number', function(done) {
         let evt = {
             headers: {
-                Host: 'localhost:3000',
-            },
-            requestContext:{
-                http:{
-                    protocol: "HTTP/1.1"
-                }
+                host: 'localhost:3000',
+                'x-forwarded-proto': 'http'
             },
             body: JSON.stringify({   
                 numberplate:  "AB12CDE",
@@ -80,12 +68,8 @@ describe('Add vehicle', function() {
     it('should return statusCode 400 when the year is greater than this year', function(done) {
         let evt = {
             headers: {
-                Host: 'localhost:3000',
-            },
-            requestContext:{
-                http:{
-                    protocol: "HTTP/1.1"
-                }
+                host: 'localhost:3000',
+                'x-forwarded-proto': 'http'
             },
             body: JSON.stringify({   
                 numberplate:  "AB12CDE",
@@ -104,12 +88,8 @@ describe('Add vehicle', function() {
     it('should return statusCode 201 when the vehicle is created', function(done) {
         let evt = {
             headers: {
-                Host: 'localhost:3000',
-            },
-            requestContext:{
-                http:{
-                    protocol: "HTTP/1.1"
-                }
+                host: 'localhost:3000',
+                'x-forwarded-proto': 'http'
             },
             body: JSON.stringify({   
                 numberplate: "AB12CDE",

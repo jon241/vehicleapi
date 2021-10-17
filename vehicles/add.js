@@ -18,7 +18,7 @@ const ddbClient = new DynamoDB.DocumentClient({
 module.exports.add = (event, context, callback) => {
   console.debug(event);
   const timestamp = new Date().getTime();
-  const protocol = event.requestContext.http.protocol.split('/')[0].toLowerCase();
+  const protocol = event.headers['x-forwarded-proto'];
   const data = JSON.parse(event.body);
   var validCharacters = /^[0-9a-zA-Z]+$/;
 
@@ -79,7 +79,7 @@ module.exports.add = (event, context, callback) => {
       statusCode: 201,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        Location: `${protocol}://${event.headers.Host}/vehicles/${params.Item.id}`
+        Location: `${protocol}://${event.headers.host}/vehicles/${params.Item.id}`
       }),
     };
 
